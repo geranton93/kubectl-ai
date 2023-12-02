@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-multicontainer
+spec:
+  containers:
+  - name: first-container
+    image: nginx
+    volumeMounts:
+    - name: shared-volume
+      mountPath: /data
+  - name: second-container
+    image: debian
+    volumeMounts:
+    - name: shared-volume
+      mountPath: /data
+    command: ["/bin/sh", "-c"]
+    args:
+    - while true; do date >> /data/dates.txt; sleep 1; done
+  volumes:
+  - name: shared-volume
+    emptyDir: {}

@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: app-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-container
+        image: gcr.io/cloud-builders/gsutil
+        command: ["gsutil", "-m", "rsync", "-r", "gs://your-gcs-bucket", "/data/input"]
+      restartPolicy: Never

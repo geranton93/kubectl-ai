@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-resources
+spec:
+  containers:
+  - name: app-container
+    image: your-image-name
+    ports:
+    - containerPort: 8080
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 8080
+    readinessProbe:
+      httpGet:
+        path: /readiness
+        port: 8080

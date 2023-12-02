@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-configmap
+spec:
+  containers:
+  - name: app-container
+    image: redis
+    volumeMounts:
+    - name: configmap-volume
+      mountPath: /config
+  volumes:
+  - name: configmap-volume
+    configMap:
+      name: app-configmap
